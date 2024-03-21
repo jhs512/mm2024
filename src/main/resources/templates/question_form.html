@@ -8,6 +8,22 @@
             <label for="subject" class="form-label">제목</label>
             <input type="text" th:field="*{subject}" class="form-control">
         </div>
+
+        <div class="mb-3">
+            <label for="name" class="form-label">상호명</label>
+            <input type="text" th:field="*{name}" class="form-control">
+        </div>
+
+        <div class="mb-3">
+            <label for="address" class="form-label">주소</label>
+            <input type="text" th:field="*{address}" class="form-control">
+        </div>
+
+        <div class="mb-3">
+            <label for="addressDetail" class="form-label">상세주소</label>
+            <input type="text" th:field="*{addressDetail}" class="form-control">
+        </div>
+
         <div class="mb-3">
             <label for="content" class="form-label">내용</label>
             <textarea th:field="*{content}" class="form-control" rows="10"></textarea>

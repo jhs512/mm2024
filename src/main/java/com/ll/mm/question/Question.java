@@ -21,6 +21,15 @@ public class Question {
     @Column(length = 200)
     private String subject;
 
+    @Column(length = 200)
+    private String name;
+
+    @Column(length = 200)
+    private String address;
+
+    @Column(length = 200)
+    private String addressDetail;
+
     @Column(columnDefinition = "TEXT")
     private String content;
 

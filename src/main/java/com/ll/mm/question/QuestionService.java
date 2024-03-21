@@ -59,17 +59,23 @@ public class QuestionService {
         }
     }
 
-    public void create(String subject, String content, SiteUser user) {
-        Question q = new Question();
-        q.setSubject(subject);
-        q.setContent(content);
-        q.setCreateDate(LocalDateTime.now());
-        q.setAuthor(user);
-        this.questionRepository.save(q);
+    public void create(SiteUser user, String subject, String name, String address, String addressDetail, String content) {
+        Question question = new Question();
+        question.setAuthor(user);
+        question.setSubject(subject);
+        question.setName(name);
+        question.setAddress(address);
+        question.setAddressDetail(addressDetail);
+        question.setContent(content);
+        question.setCreateDate(LocalDateTime.now());
+        this.questionRepository.save(question);
     }
 
-    public void modify(Question question, String subject, String content) {
+    public void modify(Question question, String subject, String name, String address, String addressDetail, String content) {
         question.setSubject(subject);
+        question.setName(name);
+        question.setAddress(address);
+        question.setAddressDetail(addressDetail);
         question.setContent(content);
         question.setModifyDate(LocalDateTime.now());
         this.questionRepository.save(question);
