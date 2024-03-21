@@ -1,5 +1,17 @@
 <html layout:decorate="~{layout}">
 <div layout:fragment="content" class="container">
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <script>
+        function showAddressPopup(el) {
+            new daum.Postcode({
+                oncomplete: function (data) {
+                    el.value = data.address;
+                }
+            }).open();
+        }
+    </script>
+    </script>
+
     <h5 class="my-3 border-bottom pb-2">질문등록</h5>
     <form th:object="${questionForm}" method="post">
         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
@@ -16,7 +28,7 @@
 
         <div class="mb-3">
             <label for="address" class="form-label">주소</label>
-            <input type="text" th:field="*{address}" class="form-control">
+            <input readonly type="text" th:field="*{address}" class="form-control" onclick="showAddressPopup(this)">
         </div>
 
         <div class="mb-3">
