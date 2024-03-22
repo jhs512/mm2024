@@ -1,4 +1,4 @@
-package com.ll.mm.question;
+package com.ll.mm.review;
 
 import com.ll.mm.answer.Answer;
 import com.ll.mm.user.SiteUser;
@@ -13,7 +13,7 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
-public class Question {
+public class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -35,7 +35,7 @@ public class Question {
 
     private LocalDateTime createDate;
 
-    @OneToMany(mappedBy = "question", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "review", cascade = CascadeType.REMOVE)
     private List<Answer> answerList;
 
     @ManyToOne

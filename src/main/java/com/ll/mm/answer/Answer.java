@@ -1,6 +1,6 @@
 package com.ll.mm.answer;
 
-import com.ll.mm.question.Question;
+import com.ll.mm.review.Review;
 import com.ll.mm.user.SiteUser;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -23,7 +23,7 @@ public class Answer {
     private LocalDateTime createDate;
 
     @ManyToOne
-    private Question question;
+    private Review review;
 
     @ManyToOne
     private SiteUser author;

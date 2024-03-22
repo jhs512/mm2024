@@ -1,4 +1,4 @@
-package com.ll.mm.question;
+package com.ll.mm.review;
 
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
@@ -7,7 +7,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class QuestionForm {
+public class ReviewForm {
     @NotEmpty(message = "제목은 필수항목입니다.")
     @Size(max = 200)
     private String subject;

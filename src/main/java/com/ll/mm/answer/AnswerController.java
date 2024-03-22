@@ -1,7 +1,7 @@
 package com.ll.mm.answer;
 
-import com.ll.mm.question.Question;
-import com.ll.mm.question.QuestionService;
+import com.ll.mm.review.Review;
+import com.ll.mm.review.ReviewService;
 import com.ll.mm.user.SiteUser;
 import com.ll.mm.user.UserService;
 import jakarta.validation.Valid;
@@ -24,7 +24,7 @@ import java.security.Principal;
 @Controller
 public class AnswerController {
 
-    private final QuestionService questionService;
+    private final ReviewService reviewService;
     private final AnswerService answerService;
     private final UserService userService;
 
@@ -32,14 +32,14 @@ public class AnswerController {
     @PostMapping("/create/{id}")
     public String createAnswer(Model model, @PathVariable("id") Integer id, @Valid AnswerForm answerForm,
                                BindingResult bindingResult, Principal principal) {
-        Question question = this.questionService.getQuestion(id);
+        Review review = this.reviewService.getReview(id);
         SiteUser siteUser = this.userService.getUser(principal.getName());
         if (bindingResult.hasErrors()) {
-            model.addAttribute("question", question);
-            return "question_detail";
+            model.addAttribute("review", review);
+            return "review_detail";
         }
-        Answer answer = this.answerService.create(question, answerForm.getContent(), siteUser);
-        return String.format("redirect:/question/detail/%s#answer_%s", answer.getQuestion().getId(), answer.getId());
+        Answer answer = this.answerService.create(review, answerForm.getContent(), siteUser);
+        return String.format("redirect:/review/detail/%s#answer_%s", answer.getReview().getId(), answer.getId());
     }
 
     @PreAuthorize("isAuthenticated()")
@@ -65,7 +65,7 @@ public class AnswerController {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
         }
         this.answerService.modify(answer, answerForm.getContent());
-        return String.format("redirect:/question/detail/%s#answer_%s", answer.getQuestion().getId(), answer.getId());
+        return String.format("redirect:/review/detail/%s#answer_%s", answer.getReview().getId(), answer.getId());
     }
 
     @PreAuthorize("isAuthenticated()")
@@ -76,7 +76,7 @@ public class AnswerController {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "삭제권한이 없습니다.");
         }
         this.answerService.delete(answer);
-        return String.format("redirect:/question/detail/%s", answer.getQuestion().getId());
+        return String.format("redirect:/review/detail/%s", answer.getReview().getId());
     }
 
     @PreAuthorize("isAuthenticated()")
@@ -85,6 +85,6 @@ public class AnswerController {
         Answer answer = this.answerService.getAnswer(id);
         SiteUser siteUser = this.userService.getUser(principal.getName());
         this.answerService.vote(answer, siteUser);
-        return String.format("redirect:/question/detail/%s#answer_%s", answer.getQuestion().getId(), answer.getId());
+        return String.format("redirect:/review/detail/%s#answer_%s", answer.getReview().getId(), answer.getId());
     }
 }
