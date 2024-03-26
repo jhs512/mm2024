@@ -1,5 +1,6 @@
 package com.ll.mm.review;
 
+import com.ll.mm.user.SiteUser;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
@@ -35,4 +36,6 @@ public interface ReviewRepository extends JpaRepository<Review, Integer> {
             + "   or a.content like %:kw% "
             + "   or u2.username like %:kw% ")
     Page<Review> findAllByKeyword(@Param("kw") String kw, Pageable pageable);
+
+    List<Review> findByAuthorOrderByIdDesc(SiteUser user);
 }

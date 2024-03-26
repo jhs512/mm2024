@@ -1,15 +1,12 @@
 package com.ll.mm.review;
 
 import com.ll.mm.DataNotFoundException;
-import com.ll.mm.answer.Answer;
 import com.ll.mm.user.SiteUser;
-import jakarta.persistence.criteria.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -68,5 +65,9 @@ public class ReviewService {
     public void vote(Review review, SiteUser siteUser) {
         review.getVoter().add(siteUser);
         this.reviewRepository.save(review);
+    }
+
+    public List<Review> getUserList(SiteUser user) {
+        return this.reviewRepository.findByAuthorOrderByIdDesc(user);
     }
 }

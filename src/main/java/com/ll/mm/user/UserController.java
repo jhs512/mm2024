@@ -1,13 +1,20 @@
 package com.ll.mm.user;
 
+import com.ll.mm.review.Review;
+import com.ll.mm.review.ReviewService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.security.Principal;
+import java.util.List;
 
 @RequiredArgsConstructor
 @Controller
@@ -15,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class UserController {
 
     private final UserService userService;
+    private final ReviewService reviewService;
 
     @GetMapping("/signup")
     public String signup(UserCreateForm userCreateForm) {
@@ -50,5 +58,18 @@ public class UserController {
     @GetMapping("/login")
     public String login() {
         return "login_form";
+    }
+
+    @GetMapping("/me")
+    public String me(Principal principal, Model model) {
+        String name = principal.getName();
+        SiteUser user = userService.getUser(name);
+
+        List<Review> reviewList = reviewService.getUserList(user);
+
+        model.addAttribute("user", user);
+        model.addAttribute("reviewList", reviewList);
+
+        return "me";
     }
 }
